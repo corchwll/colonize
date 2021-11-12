@@ -2,6 +2,10 @@
 
 ![showcase](images/showcase.gif)
 
+## Acknowledgments
+
+This extension was forked from [vmsynkov-zz](https://github.com/vmsynkov-zz) and changed for the use in python.
+
 ## Features
 
 - Adds three shotcuts to insert colons with ease if required for python keyword at the beginning of the line;

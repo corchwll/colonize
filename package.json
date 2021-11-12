@@ -3,7 +3,7 @@
   "displayName": "PyColonize",
   "description": "Adds colon at the end of the line when required and optionally newline after",
   "version": "0.0.1",
-  "publisher": "corchwll",
+  "publisher": "fertigt",
   "license": "GPL-3.0",
   "main": "./extension",
   "scripts": {

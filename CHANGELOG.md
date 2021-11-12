@@ -1,4 +1,12 @@
 # Change Log
+
+## [0.0.1] - 2021-11-12
+
+- Forked to create PyColonize
+- The extension will add colons if the python keyword at the start of line requires a colon.
+
+# Fork 
+
 All notable changes to the "Colonize" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.

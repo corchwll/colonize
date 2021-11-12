@@ -1,9 +1,9 @@
 {
-  "name": "colonize",
-  "displayName": "Colonize",
-  "description": "Adds semicolon at the end of the line and optionally newline after",
-  "version": "2.2.2",
-  "publisher": "vmsynkov",
+  "name": "pycolonize",
+  "displayName": "PyColonize",
+  "description": "Adds colon at the end of the line when required and optionally newline after",
+  "version": "0.0.1",
+  "publisher": "corchwll",
   "license": "GPL-3.0",
   "main": "./extension",
   "scripts": {
@@ -30,53 +30,53 @@
     "Snippets"
   ],
   "keywords": [
-    "semicolon",
+    "colon",
     "production",
     "speed"
   ],
-  "icon": "images/colonize.png",
+  "icon": "images/pycolonize.png",
   "galleryBanner": {
     "color": "#232323",
     "theme": "dark"
   },
   "activationEvents": [
-    "onCommand:colonize.newline",
-    "onCommand:colonize.endline",
-    "onCommand:colonize.hold"
+    "onCommand:pycolonize.newline",
+    "onCommand:pycolonize.endline",
+    "onCommand:pycolonize.hold"
   ],
   "contributes": {
     "commands": [
       {
-        "command": "colonize.endline",
+        "command": "pycolonize.endline",
         "title": "Colonize and Jump to End"
       },
       {
-        "command": "colonize.newline",
+        "command": "pycolonize.newline",
         "title": "Colonize and Jump to Newline"
       },
       {
-        "command": "colonize.hold",
+        "command": "pycolonize.hold",
         "title": "Colonize and Hold position"
       }
     ],
     "keybindings": [
       {
-        "command": "colonize.endline",
+        "command": "pycolonize.endline",
         "key": "shift+enter",
         "mac": "shift+enter",
-        "when": "editorTextFocus"
+        "when": "editorTextFocus && editorLangId == python"
       },
       {
-        "command": "colonize.newline",
-        "key": "alt+enter",
-        "mac": "alt+enter",
-        "when": "editorTextFocus"
+        "command": "pycolonize.newline",
+        "key": "ctrl+enter",
+        "mac": "cmd+enter",
+        "when": "editorTextFocus && editorLangId == python"
       },
       {
-        "command": "colonize.hold",
+        "command": "pycolonize.hold",
         "key": "ctrl+alt+enter",
         "mac": "ctrl+alt+enter",
-        "when": "editorTextFocus"
+        "when": "editorTextFocus && editorLangId == python"
       }
     ]
   }

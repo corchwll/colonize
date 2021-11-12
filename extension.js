@@ -1,5 +1,10 @@
 const vscode = require('vscode')
 
+function mustBeColonized(lineText) {
+  const pythonKeywords = ['async def', 'class', 'def', 'elif', 'else', 'except', 'finally', 'for', 'if', 'try', 'while', 'with']
+  return pythonKeywords.some(pythonKeyword => lineText.startsWith(pythonKeyword))
+}
+
 function colonize (option) {
   var editor = vscode.window.activeTextEditor
   if (!editor) return
@@ -8,13 +13,16 @@ function colonize (option) {
     var lineIndex = editor.selection.active.line
     var lineObject = editor.document.lineAt(lineIndex)
     var lineLength = lineObject.text.length
+    var lineWithoutWhitespaces = lineObject.text.substring(lineObject.firstNonWhitespaceCharacterIndex)
 
-    if (lineObject.text.charAt(lineLength - 1) !== ';' && !lineObject.isEmptyOrWhitespace) {
-      var insertionSuccess = editor.edit((editBuilder) => {
-        editBuilder.insert(new vscode.Position(lineIndex, lineLength), ';')
-      })
+    if(mustBeColonized(lineWithoutWhitespaces)) {
+      if (lineObject.text.charAt(lineLength - 1) !== ':' && !lineObject.isEmptyOrWhitespace) {
+        var insertionSuccess = editor.edit((editBuilder) => {
+          editBuilder.insert(new vscode.Position(lineIndex, lineLength), ':')
+        })
 
-      if (!insertionSuccess) return
+        if (!insertionSuccess) return
+      }
     }
 
     if (option === 'hold') return
@@ -26,15 +34,15 @@ function colonize (option) {
 }
 
 function activate (context) {
-  var endLineDisposable = vscode.commands.registerCommand('colonize.endline', () => {
+  var endLineDisposable = vscode.commands.registerCommand('pycolonize.endline', () => {
     colonize('endline')
   })
 
-  var holdDisposable = vscode.commands.registerCommand('colonize.hold', () => {
+  var holdDisposable = vscode.commands.registerCommand('pycolonize.hold', () => {
     colonize('hold')
   })
 
-  var newLineDisposable = vscode.commands.registerCommand('colonize.newline', () => {
+  var newLineDisposable = vscode.commands.registerCommand('pycolonize.newline', () => {
     colonize('newline')
   })
 

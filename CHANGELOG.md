@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.0.2] - 2021-11-12
+
+- Updated URLs and added Acknowledgments
+
 ## [0.0.1] - 2021-11-12
 
 - Forked to create PyColonize

@@ -15,5 +15,5 @@
 > Note: If line contains colon cursor will still move
 
 ## Links
-* [GitHub](https://github.com/vmsynkov/colonize)
+* [GitHub](https://github.com/corchwll/pycolonize)
 * [VisualStudio Marketplace](https://marketplace.visualstudio.com/items?itemName=vmsynkov.colonize)

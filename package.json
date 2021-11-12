@@ -17,13 +17,13 @@
   "engines": {
     "vscode": "^1.0.0"
   },
-  "homepage": "https://github.com/vmsynkov/colonize",
+  "homepage": "https://github.com/corchwll/pycolonize",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vmsynkov/colonize"
+    "url": "https://github.com/corchwll/pycolonize"
   },
   "bugs": {
-    "url": "https://github.com/vmsynkov/colonize/issues"
+    "url": "https://github.com/corchwll/pycolonize/issues"
   },
   "categories": [
     "Other",

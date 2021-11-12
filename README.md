@@ -16,4 +16,4 @@
 
 ## Links
 * [GitHub](https://github.com/corchwll/pycolonize)
-* [VisualStudio Marketplace](https://marketplace.visualstudio.com/items?itemName=vmsynkov.colonize)
+* [VisualStudio Marketplace](https://marketplace.visualstudio.com/items?itemName=fertigt.pycolonize)

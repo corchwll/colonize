@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.0.3] - 2021-11-13
+
+- Improved autocompletion for function creation
+- The extension will add/close brackets + colon when a custom function is defined
+
 ## [0.0.2] - 2021-11-12
 
 - Updated URLs and added Acknowledgments

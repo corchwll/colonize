@@ -1,11 +1,29 @@
 const vscode = require('vscode')
 
 function mustBeColonized(lineText) {
-  const pythonKeywords = ['async def', 'class', 'def', 'elif', 'else', 'except', 'finally', 'for', 'if', 'try', 'while', 'with']
-  return pythonKeywords.some(pythonKeyword => lineText.startsWith(pythonKeyword))
+  const functionKeywords = ['async def', 'def']
+  const pythonKeywords = ['class', 'elif', 'else', 'except', 'finally', 'for', 'if', 'try', 'while', 'with']
+
+  if (pythonKeywords.some(pythonKeyword => lineText.startsWith(pythonKeyword))) {
+    return 1
+  }
+
+  for (let functionKeyword of functionKeywords) {
+    if (lineText.startsWith(functionKeyword)) {
+      if (lineText.includes("(") && !lineText.includes(")"))
+        return 2
+      else if (!lineText.includes("(") && !lineText.includes(")"))
+        return 3
+      else {
+        return 1
+      }
+    }
+  }
+  return false
+
 }
 
-function colonize (option) {
+function colonize(option) {
   var editor = vscode.window.activeTextEditor
   if (!editor) return
 
@@ -15,10 +33,18 @@ function colonize (option) {
     var lineLength = lineObject.text.length
     var lineWithoutWhitespaces = lineObject.text.substring(lineObject.firstNonWhitespaceCharacterIndex)
 
-    if(mustBeColonized(lineWithoutWhitespaces)) {
+    var colonize_option = mustBeColonized(lineWithoutWhitespaces)
+
+    if (colonize_option) {
       if (lineObject.text.charAt(lineLength - 1) !== ':' && !lineObject.isEmptyOrWhitespace) {
         var insertionSuccess = editor.edit((editBuilder) => {
-          editBuilder.insert(new vscode.Position(lineIndex, lineLength), ':')
+          if (colonize_option == 1) {
+            editBuilder.insert(new vscode.Position(lineIndex, lineLength), ':')
+          } else if (colonize_option == 2) {
+            editBuilder.insert(new vscode.Position(lineIndex, lineLength), '):')
+          } else if (colonize_option == 3) {
+            editBuilder.insert(new vscode.Position(lineIndex, lineLength), '():')
+          }
         })
 
         if (!insertionSuccess) return
@@ -33,7 +59,7 @@ function colonize (option) {
   })
 }
 
-function activate (context) {
+function activate(context) {
   var endLineDisposable = vscode.commands.registerCommand('pycolonize.endline', () => {
     colonize('endline')
   })

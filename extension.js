@@ -1,6 +1,6 @@
 const vscode = require('vscode')
 
-function mustBeColonized(lineText) {
+function getCompletion(lineText) {
   const functionKeywords = ['async def', 'def']
   const pythonKeywords = ['class', 'elif', 'else', 'except', 'finally', 'for', 'if', 'try', 'while', 'with']
 
@@ -10,16 +10,17 @@ function mustBeColonized(lineText) {
 
   for (let functionKeyword of functionKeywords) {
     if (lineText.startsWith(functionKeyword)) {
-      if (lineText.includes("(") && !lineText.includes(")"))
-        return 2
+      bracketsToClose = lineText.split("(").length - lineText.split(")").length
+      if (bracketsToClose > 0)
+        return ")".repeat(bracketsToClose) + ":"
       else if (!lineText.includes("(") && !lineText.includes(")"))
-        return 3
+        return "():"
       else {
-        return 1
+        return ":"
       }
     }
   }
-  return false
+  return null
 
 }
 
@@ -33,18 +34,12 @@ function colonize(option) {
     var lineLength = lineObject.text.length
     var lineWithoutWhitespaces = lineObject.text.substring(lineObject.firstNonWhitespaceCharacterIndex)
 
-    var colonize_option = mustBeColonized(lineWithoutWhitespaces)
+    var completion = getCompletion(lineWithoutWhitespaces)
 
-    if (colonize_option) {
+    if (completion) {
       if (lineObject.text.charAt(lineLength - 1) !== ':' && !lineObject.isEmptyOrWhitespace) {
         var insertionSuccess = editor.edit((editBuilder) => {
-          if (colonize_option == 1) {
-            editBuilder.insert(new vscode.Position(lineIndex, lineLength), ':')
-          } else if (colonize_option == 2) {
-            editBuilder.insert(new vscode.Position(lineIndex, lineLength), '):')
-          } else if (colonize_option == 3) {
-            editBuilder.insert(new vscode.Position(lineIndex, lineLength), '():')
-          }
+          editBuilder.insert(new vscode.Position(lineIndex, lineLength), completion)
         })
 
         if (!insertionSuccess) return

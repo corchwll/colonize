@@ -36,7 +36,8 @@ function colonize(option) {
     var colonize_option = mustBeColonized(lineWithoutWhitespaces)
 
     if (colonize_option) {
-      if (lineObject.text.charAt(lineLength - 1) !== ':' && !lineObject.isEmptyOrWhitespace) {
+      // line might be a sad line  — ): 
+      if (!lineObject.text.includes("):") && !lineObject.isEmptyOrWhitespace) {
         var insertionSuccess = editor.edit((editBuilder) => {
           if (colonize_option == 1) {
             editBuilder.insert(new vscode.Position(lineIndex, lineLength), ':')
